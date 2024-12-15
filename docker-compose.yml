@@ -42,13 +42,13 @@ services:
       retries: 3
 
   frontend_service:
-    image: node:20
+    image: node:20.18-alpine3.20
     container_name: frontend_service
     working_dir: /app
     volumes:
       - ./frontend-service:/app
     ports:
-      - "5137:5137"
+      - "5173:5173"
     command: ["yarn", "dev"]
     depends_on:
       - admin_service
