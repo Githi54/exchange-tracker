@@ -1,0 +1,27 @@
+{
+  "name": "exchange-tracker",
+  "version": "1.0.0",
+  "description": "application that analyzes currency exchange rates every 15 seconds and sends notifications if there are business-relevant changes.",
+  "main": ".",
+  "scripts": {
+    "start": "docker-compose up",
+    "start:admin": "docker-compose up admin_service",
+    "start:collector": "docker-compose up collector_service",
+    "start:frontend": "docker-compose up frontend_service",
+    "start:db": "docker-compose up pg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Githi54/exchange-tracker.git"
+  },
+  "keywords": [
+    "exchange",
+    "tracker"
+  ],
+  "author": "Mykyta Havrilyuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Githi54/exchange-tracker/issues"
+  },
+  "homepage": "https://github.com/Githi54/exchange-tracker#readme"
+}

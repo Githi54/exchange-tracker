@@ -49,7 +49,7 @@ services:
       - ./frontend-service:/app
     ports:
       - "5137:5137"
-    command: ["yarn", "start"]
+    command: ["yarn", "dev"]
     depends_on:
       - admin_service
     environment:
