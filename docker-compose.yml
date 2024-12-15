@@ -1,0 +1,106 @@
+services:
+  admin_service:
+    image: node:20
+    container_name: admin_service
+    working_dir: /app
+    volumes:
+      - ./admin-service:/app
+    ports:
+      - "5000:5000"
+    command: ["yarn", "run", "start:dev"]
+    depends_on:
+      - pg
+      - redis
+      - collector_service
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@pg:5432/currencydb
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=development
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  collector_service:
+    image: node:20
+    container_name: collector_service
+    working_dir: /app
+    volumes:
+      - ./collector-service:/app
+    ports:
+      - "8000:8000"
+    command: ["yarn", "run", "start:dev"]
+    depends_on:
+      - pg
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@pg:5432/currencydb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend_service:
+    image: node:20
+    container_name: frontend_service
+    working_dir: /app
+    volumes:
+      - ./frontend-service:/app
+    ports:
+      - "5137:5137"
+    command: ["yarn", "start"]
+    depends_on:
+      - admin_service
+    environment:
+      - REACT_APP_API_URL=http://admin_service:3001
+
+  pg:
+    image: postgres:15
+    container_name: pg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: currencydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3003:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  pg_data:
+  grafana_data:
