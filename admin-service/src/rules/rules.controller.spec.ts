@@ -14,7 +14,8 @@ describe('RulesController', () => {
           provide: RulesService,
           useValue: {
             createRule: jest.fn(),
-            getRules: jest.fn(),
+            getAllRules: jest.fn(),
+            getUserRules: jest.fn(),
             deleteRule: jest.fn(),
           },
         },
@@ -48,7 +49,35 @@ describe('RulesController', () => {
     });
   });
 
-  describe('getRules', () => {
+  describe('getAllRules', () => {
+    it('should call RulesService.getRules and return the result', async () => {
+      const expectedResult = [
+        {
+          id: '123',
+          userId: '1',
+          currencyA: 'USD',
+          currencyB: 'EUR',
+          percentage: 10,
+          period: 30,
+          createdAt: new Date(),
+        },
+        {
+          id: '124',
+          userId: '5',
+          currencyA: 'USD',
+          currencyB: 'EUR',
+          percentage: 10,
+          period: 30,
+          createdAt: new Date(),
+        },
+      ];
+      jest.spyOn(rulesService, 'getAllRules').mockResolvedValue(expectedResult);
+
+      expect(await rulesController.getAllRules()).toEqual(expectedResult);
+    });
+  });
+
+  describe('getUserRules', () => {
     it('should call RulesService.getRules and return the result', async () => {
       const userId = '1';
       const expectedResult = [
@@ -62,10 +91,14 @@ describe('RulesController', () => {
           createdAt: new Date(),
         },
       ];
-      jest.spyOn(rulesService, 'getRules').mockResolvedValue(expectedResult);
+      jest
+        .spyOn(rulesService, 'getUserRules')
+        .mockResolvedValue(expectedResult);
 
-      expect(await rulesController.getRules(userId)).toEqual(expectedResult);
-      expect(rulesService.getRules).toHaveBeenCalledWith(userId);
+      expect(await rulesController.getUserRules(userId)).toEqual(
+        expectedResult,
+      );
+      expect(rulesService.getUserRules).toHaveBeenCalledWith(userId);
     });
   });
 

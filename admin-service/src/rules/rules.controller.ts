@@ -5,6 +5,11 @@ import { RulesService } from './rules.service';
 export class RulesController {
   constructor(private readonly rulesService: RulesService) {}
 
+  @Get()
+  async getAllRules() {
+    return this.rulesService.getAllRules();
+  }
+
   @Post()
   async createRule(
     @Body()
@@ -20,8 +25,8 @@ export class RulesController {
   }
 
   @Get(':userId')
-  async getRules(@Param('userId') userId: string) {
-    return this.rulesService.getRules(userId);
+  async getUserRules(@Param('userId') userId: string) {
+    return this.rulesService.getUserRules(userId);
   }
 
   @Delete(':ruleId')

@@ -12,6 +12,8 @@ services:
       - pg
       - redis
       - collector_service
+    env_file:
+      - "./admin-service/.env"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@pg:5432/currencydb
       - REDIS_URL=redis://redis:6379

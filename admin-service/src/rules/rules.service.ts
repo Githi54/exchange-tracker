@@ -22,7 +22,11 @@ export class RulesService {
     });
   }
 
-  async getRules(userId: string) {
+  async getAllRules() {
+    return prisma.rule.findMany();
+  }
+
+  async getUserRules(userId: string) {
     return prisma.rule.findMany({ where: { userId } });
   }
 
