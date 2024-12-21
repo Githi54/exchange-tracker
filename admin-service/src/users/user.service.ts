@@ -14,4 +14,8 @@ export class UserService {
   async findUserById(userId: string) {
     return prisma.user.findUniqueOrThrow({ where: { id: userId } });
   }
+
+  async findUsers() {
+    return prisma.user.findMany();
+  }
 }
