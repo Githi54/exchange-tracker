@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id       String  @id @default(uuid())
-  email    String  @unique
+  nickname    String  @unique
   rules    Rule[]
 }
 
@@ -22,4 +22,5 @@ model Rule {
   period      Int?
   createdAt   DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id])
+  isPopular   Boolean @default(false)
 }
