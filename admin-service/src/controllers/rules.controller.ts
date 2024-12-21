@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
-import { RulesService } from './rules.service';
+import { RulesService } from '../services/rules.service';
 
 @Controller('rules')
 export class RulesController {
