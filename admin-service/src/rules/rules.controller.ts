@@ -19,6 +19,7 @@ export class RulesController {
       currencyB: string;
       percentage: number;
       period?: number;
+      isPopular?: boolean;
     },
   ) {
     return this.rulesService.createRule(ruleData.userId, ruleData);

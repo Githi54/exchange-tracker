@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from 'src/utils/prisma';
 
 @Injectable()
 export class RulesService {
@@ -12,6 +10,7 @@ export class RulesService {
       currencyB: string;
       percentage: number;
       period?: number;
+      isPopular?: boolean;
     },
   ) {
     return prisma.rule.create({

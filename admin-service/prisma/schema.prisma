@@ -8,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  nickname    String  @unique
-  rules    Rule[]
+  id       String @id @default(uuid())
+  nickname String @unique
+  Rule     Rule[]
 }
 
 model Rule {
-  id          String  @id @default(uuid())
-  userId      String
-  currencyA   String
-  currencyB   String
-  percentage  Float
-  period      Int?
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
-  isPopular   Boolean @default(false)
+  id         String   @id @default(uuid())
+  userId     String
+  currencyA  String
+  currencyB  String
+  percentage Float
+  period     Int?
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  isPopular  Boolean  @default(false)
 }

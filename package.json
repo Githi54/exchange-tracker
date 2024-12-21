@@ -8,7 +8,9 @@
     "start:admin": "docker-compose up admin_service",
     "start:collector": "docker-compose up collector_service",
     "start:frontend": "docker-compose up frontend_service",
-    "start:db": "docker-compose up pg"
+    "start:db": "docker-compose up pg",
+    "seed:admin": "docker compose run admin_service yarn run seed",
+    "migrate:admin": "docker compose run admin_service yarn run migrate"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,7 @@
     "tracker"
   ],
   "author": "Mykyta Havrilyuk",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Githi54/exchange-tracker/issues"
   },
