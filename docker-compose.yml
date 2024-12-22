@@ -37,6 +37,8 @@ services:
       - pg
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@pg:5432/currencydb
+    env_file:
+      - "./collector-service/.env"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
