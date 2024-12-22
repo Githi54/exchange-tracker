@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RulesController } from './rules.controller';
+import { RulesController } from '../controllers/rules.controller';
 import { RulesService } from '../services/rules.service';
 
 describe('RulesController', () => {
@@ -35,6 +35,7 @@ describe('RulesController', () => {
         percentage: 10,
         period: 30,
         createdAt: new Date(),
+        isPopular: false,
       };
       const expectedResult = { id: '123', ...ruleData };
       jest.spyOn(rulesService, 'createRule').mockResolvedValue(expectedResult);
@@ -60,6 +61,7 @@ describe('RulesController', () => {
           percentage: 10,
           period: 30,
           createdAt: new Date(),
+          isPopular: false,
         },
         {
           id: '124',
@@ -69,6 +71,7 @@ describe('RulesController', () => {
           percentage: 10,
           period: 30,
           createdAt: new Date(),
+          isPopular: false,
         },
       ];
       jest.spyOn(rulesService, 'getAllRules').mockResolvedValue(expectedResult);
@@ -89,6 +92,7 @@ describe('RulesController', () => {
           percentage: 10,
           period: 30,
           createdAt: new Date(),
+          isPopular: false,
         },
       ];
       jest
@@ -113,6 +117,7 @@ describe('RulesController', () => {
         percentage: 5.0,
         period: 30,
         createdAt: new Date(),
+        isPopular: false,
       };
 
       jest.spyOn(rulesService, 'deleteRule').mockResolvedValue(expectedResult);
